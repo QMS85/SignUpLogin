@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup and Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6; /* Light background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            transition: background-color 0.5s ease;
+        }
+
+        body.dark-mode {
+            background-color: #1a202c; /* Dark background */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .container.dark-mode {
+            background-color: #2d3748; /* Dark container */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #1a202c;
+            margin-bottom: 24px;
+            transition: color 0.5s ease;
+        }
+
+        h1.dark-mode, h2.dark-mode {
+            color: #f7fafc; /* Light text in dark mode */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .input-group label {
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            transition: color 0.5s ease;
+        }
+
+        .input-group.dark-mode label {
+            color: #cbd5e0; /* Light label in dark mode */
+        }
+
+        .input-group input {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            transition: border-color 0.3s ease, background-color 0.5s ease, color 0.5s ease;
+            outline: none;
+        }
+
+        .input-group input.dark-mode {
+            background-color: #374151; /* Dark input */
+            border-color: #4a5568;
+            color: #f7fafc; /* Light text in dark mode */
+        }
+
+        .input-group input:focus {
+            border-color: #4299e1; /* Focus border color */
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15); /* Focus shadow */
+        }
+
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.875rem;
+            margin-top: 4px;
+            display: none;
+            transition: color 0.3s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            background-color: #4299e1;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #3182ce; /* Darker shade on hover */
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background-color: #a0aec0; /* Grayed out when disabled */
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #4a5568;
+            transition: color 0.5s ease;
+        }
+
+        .switch-form.dark-mode {
+            color: #cbd5e0; /* Light text in dark mode */
+        }
+
+        .switch-form button {
+            background: none;
+            color: #4299e1;
+            padding: 0;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .switch-form button:hover {
+            color: #2b6cb0; /* Darker shade on hover */
+            transform: translateY(-2px);
+        }
+
+        #dashboard {
+            background-color: #f0f4f8; /* Light background for dashboard */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%;
+            text-align: center;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+            display: none; /* Initially hidden */
+        }
+
+        #dashboard.dark-mode {
+            background-color: #2d3748; /* Dark background for dashboard */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        #dashboard h2 {
+            margin-bottom: 24px;
+            color: #1a202c;
+            transition: color 0.5s ease;
+        }
+
+        #dashboard.dark-mode h2 {
+            color: #f7fafc; /* Light text in dark mode */
+        }
+
+        #dashboard p {
+            margin-bottom: 16px;
+            color: #4a5568;
+            font-size: 1rem;
+            transition: color 0.5s ease;
+        }
+
+        #dashboard.dark-mode p {
+            color: #cbd5e0; /* Light text in dark mode */
+        }
+
+        #dashboard button {
+            margin-top: 20px;
+            background-color: #e53e3e; /* Red button for logout */
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        #dashboard button:hover {
+            background-color: #c53030; /* Darker red on hover */
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            transition: margin-bottom 0.3s ease;
+        }
+
+        .form-group.dark-mode {
+            margin-bottom: 20px;
+        }
+
+        .toggle-dark-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: color 0.5s ease;
+        }
+
+        .toggle-dark-mode.dark-mode {
+            color: #f7fafc;
+        }
+
+        .toggle-dark-mode input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-dark-mode">
+        <label for="dark-mode-switch">Dark Mode</label>
+        <input type="checkbox" id="dark-mode-switch">
+    </div>
+    <div class="container" id="signup-form">
+        <h1>Sign Up</h1>
+        <form id="signup">
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+                    <div id="name-error" class="error-message"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                    <div id="email-error" class="error-message"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password">
+                    <div id="password-error" class="error-message"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
+                    <div id="confirm-password-error" class="error-message"></div>
+                </div>
+            </div>
+            <button type="submit" id="signup-button">Sign Up</button>
+        </form>
+        <div class="switch-form">
+            <button id="switch-to-login">Already have an account? Log in</button>
+        </div>
+    </div>
+
+    <div class="container" id="login-form" style="display: none;">
+        <h1>Log In</h1>
+        <form id="login">
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="email" placeholder="Enter your email">
+                    <div id="login-email-error" class="error-message"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" placeholder="Enter your password">
+                    <div id="login-password-error" class="error-message"></div>
+                </div>
+            </div>
+            <button type="submit" id="login-button">Log In</button>
+        </form>
+        <div class="switch-form">
+            <button id="switch-to-signup">Don't have an account? Sign up</button>
+        </div>
+    </div>
+
+    <div class="container" id="dashboard">
+        <h2>Welcome to your Dashboard</h2>
+        <p><strong>Name:</strong> <span id="dashboard-name"></span></p>
+        <p><strong>Email:</strong> <span id="dashboard-email"></span></p>
+        <p><strong>Unique Information:</strong> <span id="dashboard-unique-info"></span></p>
+        <button id="logout-button">Log Out</button>
+    </div>
+
+    <script type="text/babel">
+        const signupForm = document.getElementById('signup');
+        const loginForm = document.getElementById('login-form');
+        const signupButton = document.getElementById('signup-button');
+        const loginButton = document.getElementById('login-button');
+        const switchToLoginButton = document.getElementById('switch-to-login');
+        const switchToSignupButton = document.getElementById('switch-to-signup');
+        const dashboard = document.getElementById('dashboard');
+        const logoutButton = document.getElementById('logout-button');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const loginEmailInput = document.getElementById('login-email');
+        const loginPasswordInput = document.getElementById('login-password');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const h1Elements = document.querySelectorAll('h1');
+        const labels = document.querySelectorAll('label');
+        const switchFormLinks = document.querySelectorAll('.switch-form');
+        const darkModeSwitch = document.getElementById('dark-mode-switch');
+
+
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+        function validateName(name) {
+            if (!name.trim()) {
+                return "Name is required";
+            }
+            if (name.length < 2) {
+                return "Name must be at least 2 characters";
+            }
+            return "";
+        }
+
+        function validateEmail(email) {
+            if (!email.trim()) {
+                return "Email is required";
+            }
+            const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            if (!emailRegex.test(email)) {
+                return "Invalid email format";
+            }
+            return "";
+        }
+
+        function validatePassword(password) {
+            if (!password.trim()) {
+                return "Password is required";
+            }
+            if (password.length < 8) {
+                return "Password must be at least 8 characters";
+            }
+            if (!/(?=.*[a-z])/.test(password)) {
+                return "Password must contain at least one lowercase letter";
+            }
+            if (!/(?=.*[A-Z])/.test(password)) {
+                return "Password must contain at least one uppercase letter";
+            }
+            if (!/(?=.*\d)/.test(password)) {
+                return "Password must contain at least one number";
+            }
+            if (!/(?=.*[!@#\$%\^&\*])/.test(password)) {
+                return "Password must contain at least one special character";
+            }
+            return "";
+        }
+
+        function validateConfirmPassword(password, confirmPassword) {
+            if (!confirmPassword.trim()) {
+                return "Confirm Password is required";
+            }
+            if (password !== confirmPassword) {
+                return "Passwords do not match";
+            }
+            return "";
+        }
+
+        function displayErrorMessage(inputElement, message) {
+            const errorElement = document.getElementById(`${inputElement.id}-error`);
+            errorElement.textContent = message;
+            errorElement.classList.toggle('show', !!message);
+        }
+
+        function clearErrors() {
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(error => {
+                error.textContent = '';
+                error.classList.remove('show');
+            });
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            clearErrors();
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            const confirmPassword = confirmPasswordInput.value.trim();
+
+            const nameError = validateName(name);
+            const emailError = validateEmail(email);
+            const passwordError = validatePassword(password);
+            const confirmPasswordError = validateConfirmPassword(password, confirmPassword);
+
+            displayErrorMessage(nameInput, nameError);
+            displayErrorMessage(emailInput, emailError);
+            displayErrorMessage(passwordInput, passwordError);
+            displayErrorMessage(confirmPasswordInput, confirmPasswordError);
+
+            if (nameError || emailError || passwordError || confirmPasswordError) {
+                return;
+            }
+
+            const existingUser = users.find(user => user.email === email);
+            if (existingUser) {
+                displayErrorMessage(emailInput, "Email already exists. Please log in.");
+                return;
+            }
+
+            const newUser = {
+                name,
+                email,
+                password,
+                uniqueInfo: `User registered at ${new Date().toLocaleString()}`
+            };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            currentUser = newUser;
+            showDashboard();
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            clearErrors();
+
+            const email = loginEmailInput.value.trim();
+            const password = loginPasswordInput.value.trim();
+
+            const emailError = validateEmail(email);
+            const passwordError = validatePassword(password);
+
+            displayErrorMessage(loginEmailInput, emailError);
+            displayErrorMessage(loginPasswordInput, passwordError);
+
+            if (emailError || passwordError) {
+                return;
+            }
+
+            const user = users.find(u => u.email === email && u.password === password);
+            if (!user) {
+                displayErrorMessage(loginEmailInput, "Invalid credentials. Please try again.");
+                displayErrorMessage(loginPasswordInput, "Invalid credentials. Please try again.");
+                return;
+            }
+
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            currentUser = user;
+            showDashboard();
+        }
+
+        function showDashboard() {
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'none';
+            dashboard.style.display = 'block';
+            document.getElementById('dashboard-name').textContent = currentUser.name;
+            document.getElementById('dashboard-email').textContent = currentUser.email;
+            document.getElementById('dashboard-unique-info').textContent = currentUser.uniqueInfo;
+        }
+
+        function showLoginForm() {
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            dashboard.style.display = 'none';
+            clearErrors();
+        }
+
+        function showSignupForm() {
+            signupForm.style.display = 'block';
+            loginForm.style.display = 'none';
+            dashboard.style.display = 'none';
+            clearErrors();
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            showSignupForm();
+        }
+
+        function toggleDarkMode() {
+            body.classList.toggle('dark-mode');
+            container.classList.toggle('dark-mode');
+            h1Elements.forEach(h1 => h1.classList.toggle('dark-mode'));
+            labels.forEach(label => label.classList.toggle('dark-mode'));
+            switchFormLinks.forEach(link => link.classList.toggle('dark-mode'));
+
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+        const savedDarkMode = localStorage.getItem('darkMode');
+        if (savedDarkMode === 'enabled') {
+            darkModeSwitch.checked = true;
+            toggleDarkMode();
+        }
+
+        if (currentUser) {
+            showDashboard();
+        } else {
+            showSignupForm();
+        }
+
+        signupForm.addEventListener('submit', handleSignup);
+        loginForm.addEventListener('submit', handleLogin);
+        switchToLoginButton.addEventListener('click', showLoginForm);
+        switchToSignupButton.addEventListener('click', showSignupForm);
+        logoutButton.addEventListener('click', handleLogout);
+        darkModeSwitch.addEventListener('change', toggleDarkMode);
+    </script>
+</body>
+</html>
