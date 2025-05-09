@@ -21,31 +21,31 @@
 
 ##### Variables: Gets HTML elements and retrieves stored user data from ```localStorage```.  
 
-##### Validation Functions:
-```validateName()```: Checks if the name is not empty and has at least 2 characters.
-```validateEmail()```: Checks for a valid email format using a regular expression.
-```validatePassword()```: Checks for minimum length (8), and ensures the password contains at least one lowercase letter, one uppercase letter, one number, and one special character.
-```validateConfirmPassword()```: Checks if the password confirmation matches the password.
-```displayErrorMessage()```: Displays an error message below the input field.
+##### Validation Functions:  
+```validateName()```: Checks if the name is not empty and has at least 2 characters.  
+```validateEmail()```: Checks for a valid email format using a regular expression.  
+```validatePassword()```: Checks for minimum length (8), and ensures the password contains at least one lowercase letter, one uppercase letter, one number, and one special character.  
+```validateConfirmPassword()```: Checks if the password confirmation matches the password.  
+```displayErrorMessage()```: Displays an error message below the input field.  
 ```clearErrors()```: Clears all error messages.  
 
-##### Form Handling:
-```handleSignup(event)```: Validates the signup form, checks for an existing user, stores the new user in localStorage, and displays the dashboard.
-```handleLogin(event)```: Validates the login form, retrieves the user from localStorage, and displays the dashboard.
-```showDashboard()```: Hides the signup and login forms and displays the user dashboard.
-```showLoginForm()```: Displays the login form and hides the signup form and dashboard.
-```showSignupForm()```: Displays the signup form and hides the login form and dashboard.
-```handleLogout()```: Removes the current user from localStorage and redirects to the signup form.
-```toggleDarkMode()```: Switches between light and dark mode by adding/removing a class to the body and other elements. It also saves the user's preference to localStorage.  
+##### Form Handling:  
+```handleSignup(event)```: Validates the signup form, checks for an existing user, stores the new user in localStorage, and displays the dashboard.  
+```handleLogin(event)```: Validates the login form, retrieves the user from localStorage, and displays the dashboard.  
+```showDashboard()```: Hides the signup and login forms and displays the user dashboard.  
+```showLoginForm()```: Displays the login form and hides the signup form and dashboard.  
+```showSignupForm()```: Displays the signup form and hides the login form and dashboard.  
+```handleLogout()```: Removes the current user from localStorage and redirects to the signup form.  
+```toggleDarkMode()```: Switches between light and dark mode by adding/removing a class to the body and other elements. It also saves the user's preference to localStorage.   
 
-##### Event Listeners:
-```signupForm.addEventListener('submit', handleSignup)```: Handles the signup form submission.
-```loginForm.addEventListener('submit', handleLogin)```: Handles the login form submission.
-```switchToLoginButton.addEventListener('click', showLoginForm)```: Switches to the login form.
-```switchToSignupButton.addEventListener('click', showSignupForm)```: Switches to the signup form.
-```logoutButton.addEventListener('click', handleLogout)```: Handles the logout button click.
+##### Event Listeners:  
+```signupForm.addEventListener('submit', handleSignup)```: Handles the signup form submission.  
+```loginForm.addEventListener('submit', handleLogin)```: Handles the login form submission.  
+```switchToLoginButton.addEventListener('click', showLoginForm)```: Switches to the login form.  
+```switchToSignupButton.addEventListener('click', showSignupForm)```: Switches to the signup form.  
+```logoutButton.addEventListener('click', handleLogout)```: Handles the logout button click.  
 ```darkModeSwitch.addEventListener('change', toggleDarkMode)```: Handles changes to the dark mode toggle.  
 
-##### Initial Setup:
-Checks for a logged-in user in ```localStorage``` and displays the dashboard if found. Otherwise, it displays the signup form.
+##### Initial Setup:  
+Checks for a logged-in user in ```localStorage``` and displays the dashboard if found. Otherwise, it displays the signup form.  
 Applies the user's dark mode preference from ```localStorage```, if any.
