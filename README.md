@@ -10,16 +10,23 @@
 ##### Dark Mode Toggle: A checkbox to switch between light and dark mode.  
 
 #### CSS (```<style>```):
-##### Responsive Design: Uses ```max-width``` and percentages to adapt to different screen sizes.
-##### Flexbox: Used for layout and alignment of form elements.
-##### Error Messages: Styled with a red color and are hidden by default.
-##### Buttons: Styled with hover effects (darker shade and slight elevation). The sign up button is disabled until all the fields are valid.
-##### Transitions: Smooth color and transform transitions for better user experience.
-##### Dark Mode: Styles for dark mode, including background, text, and box shadows.  
+##### Responsive Design:  
+Uses ```max-width``` and percentages to adapt to different screen sizes.
+##### Flexbox:  
+Used for layout and alignment of form elements.
+##### Error Messages:  
+Styled with a red color and are hidden by default.
+##### Buttons:  
+Styled with hover effects (darker shade and slight elevation). The sign up button is disabled until all the fields are valid.
+##### Transitions:  
+Smooth color and transform transitions for better user experience.
+##### Dark Mode:  
+Styles for dark mode, including background, text, and box shadows.  
 
 #### JavaScript (```<script type="text/babel">```):  
 
-##### Variables: Gets HTML elements and retrieves stored user data from ```localStorage```.  
+##### Variables:  
+Gets HTML elements and retrieves stored user data from ```localStorage```.  
 
 ##### Validation Functions:  
 ```validateName()```: Checks if the name is not empty and has at least 2 characters.  
@@ -46,6 +53,6 @@
 ```logoutButton.addEventListener('click', handleLogout)```: Handles the logout button click.  
 ```darkModeSwitch.addEventListener('change', toggleDarkMode)```: Handles changes to the dark mode toggle.  
 
-##### Initial Setup:  
+##### Initial Setup:   
 Checks for a logged-in user in ```localStorage``` and displays the dashboard if found. Otherwise, it displays the signup form.  
 Applies the user's dark mode preference from ```localStorage```, if any.
